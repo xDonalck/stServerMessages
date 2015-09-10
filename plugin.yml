@@ -1,0 +1,41 @@
+name: stServerMessages
+version: 1.4.5
+description: Changes some vanilla messages to match the server chat color layout, changes motd on ping, and blocks certain commands.
+author: RiotShielder
+website: https://shepherdjerred.com/
+
+main: com.shepherdjerred.stservermessages.Main
+
+commands:
+    say:
+        description: Sends a message to the server
+        aliases: [broadcast]
+    me:
+        description: Sends a message to the server as yourself
+    stsm:
+        description: Base command
+        aliases: [stservermessages, sm]
+        
+permissions:
+    stServerMessages.*:
+        description: Gives access to all plugin functions
+        children:
+            stServerMessages.say: true
+            stServerMessages.me: true
+            stServerMessages.reload: true
+            stServerMessages.commands: true
+    stServerMessages.say:
+        description: Gives access to /say
+        default: op
+    stServerMessages.me:
+        description: Gives access to /me
+        default: true
+    stServerMessages.reload:
+        description: Gives access to /stsm reload
+        default: op
+    stServerMessages.commands:
+        description: Allows players to run disallowed commands
+        default: op
+    stServerMessages.preferences:
+        description: Allows players to set tips/shop ads preferences
+        default: true
