@@ -1,4 +1,6 @@
 # stServerMessages
+Modify death messages, join/leave messages, tab header/footer, and much more!
+
 This is a fairly simple plugin, which does a few things regarding chat. It'll probably be useless to most people, but someone out there might find a purpose for it.
 
 Functions
