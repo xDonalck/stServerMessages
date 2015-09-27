@@ -1,8 +1,8 @@
 name: stServerMessages
-version: 1.4.5
+version: 1.4.6
 description: Changes some vanilla messages to match the server chat color layout, changes motd on ping, and blocks certain commands.
-author: RiotShielder
-website: https://shepherdjerred.com/
+author: Jerred Shepherd (RiotShielder)
+website: http://shepherdjerred.com/
 
 main: com.shepherdjerred.stservermessages.Main
 
@@ -14,7 +14,7 @@ commands:
         description: Sends a message to the server as yourself
     stsm:
         description: Base command
-        aliases: [stservermessages, sm]
+        aliases: [stservermessages]
         
 permissions:
     stServerMessages.*:
