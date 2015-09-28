@@ -1,17 +1,17 @@
-#The prefix used for plugin messages
+# The prefix used for plugin messages
 prefix:
     server: "&8[&3stServerMessages&8]: &7"
 
-#A random MOTD will be chosen from this list every time the server is pinged.
+# A random MOTD will be chosen from this list every time the server is pinged.
 motds:
     - "Sample MOTD"
 
-#Tab list header/footer
+# Tab list header/footer
 tab-list:
     header: "Sample Header"
     footer: "Sample Footer"
 
-#Various messages used by the plugin
+# Various messages used by the plugin
 messages:
     join: "&3%player% &8has joined the game."
     leave: "&3%player% &8has left the game."
@@ -22,7 +22,7 @@ messages:
     no-args: "&cNo arguments given!"
     invalid-arg: "&cInvalid argument(s)!"
 
-#Messages and options concerning deaths
+# Messages and options concerning deaths
 deaths:
     counter-before-hidden: 3
     counter-expire-interval: 5
@@ -151,7 +151,7 @@ deaths:
         - "&3%attacker% &8taught &3%victim% &8the true meaning of PVP."
         - "&8What is this, like death number ten for &3%victim%&8? Ask &3%attacker%&8."
     
-#These commands won't be run unless the player has the permission stServerMessages.commands
+# These commands won't be run unless the player has the permission stServerMessages.commands
 disallow-commands:
     - version
     - ver

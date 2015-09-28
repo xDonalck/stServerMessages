@@ -1,6 +1,6 @@
 name: stServerMessages
 version: 1.4.6
-description: Changes some vanilla messages to match the server chat color layout, changes motd on ping, and blocks certain commands.
+description: Modify death messages, join/leave messages, tab header/footer, and much more!
 author: Jerred Shepherd (RiotShielder)
 website: http://shepherdjerred.com/
 
