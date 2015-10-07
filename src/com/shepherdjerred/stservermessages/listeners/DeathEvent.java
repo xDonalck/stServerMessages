@@ -40,6 +40,8 @@ public class DeathEvent implements Listener {
 	final String raw = list.get(random.nextInt(list.size()));
 	return raw.replaceAll("&", "§").replaceAll("§§", "&");
     }
+    
+    // TODO Finish adding missing causes and mobs
 
     /*
      * Missing Causes: Falling Block, Magic, Poison, Thorns, Wither
@@ -51,6 +53,7 @@ public class DeathEvent implements Listener {
      * Jockey, Wither Skeleton
      */
 
+    // TODO Document all of this code
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
 	Player player = event.getEntity();

@@ -11,40 +11,55 @@ import com.shepherdjerred.stservermessages.Main;
 public class MeCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-	if (cmd.getName().equalsIgnoreCase("me")) {
-	    if (sender instanceof Player) {
-		Player player = (Player) sender;
-		if (player.hasPermission("stServerMessages.me")) {
-		    if (args.length == 0) {
-			String prefix = Main.getInstance().getConfigString("prefix.server");
-			String noargs = Main.getInstance().getConfigString("messages.no-args");
-			sender.sendMessage(prefix + noargs);
-			return false;
-		    } else {
-			String message = Main.getInstance().getConfigString("messages.me");
 
+	if (cmd.getName().equalsIgnoreCase("me")) { // Start me command
+	    if (sender instanceof Player) { // Check if the sender is a player
+		Player player = (Player) sender;
+		if (player.hasPermission("stServerMessages.me")) { // Check if player has permission to use this command
+		    if (args.length > 0) { // Check if the argument length is greater than 0
+
+			// Get all the arguments, make a string with them
 			StringBuilder sb = new StringBuilder();
+
 			for (int i = 0; i < args.length; i++) {
 			    sb.append(args[i]).append(" ");
 			}
 
 			String allArgs = sb.toString().trim();
 
-			Bukkit.broadcastMessage(message.replaceAll("%player%", player.getName()).replaceAll("%message%", allArgs));
+			// Broadcast the message
+			// TODO: Send this message as a player, not a broadcast
+			Bukkit.broadcastMessage(Main.getInstance().messagesMe.replaceAll("%player%", player.getName()).replaceAll("%message%", allArgs));
+
 			return true;
+
+		    } else { // If there are no arguments
+
+			// Send an error message
+			sender.sendMessage(Main.getInstance().messagesPrefix + Main.getInstance().messagesNoArgs + "<message>");
+
+			return false;
+
 		    }
-		} else {
-		    String prefix = Main.getInstance().getConfigString("prefix.server");
-		    String noperms = Main.getInstance().getConfigString("messages.no-perms");
-		    sender.sendMessage(prefix + noperms);
+		} else { // If the player doesn't have permission to run the command
+
+		    // Send an error message
+		    sender.sendMessage(Main.getInstance().messagesPrefix + Main.getInstance().messagesNoPerms);
+
 		    return false;
+
 		}
-	    } else {
-		String noconsole = Main.getInstance().getConfigString("messages.no-console");
-		Main.getInstance().getLogger().info(noconsole);
+	    } else { // If the sender isn't a player, IE console
+		
+		// Send an error message
+		Main.getInstance().getLogger().info(Main.getInstance().messageNoConsole);
+		
 		return false;
+		
 	    }
 	}
+	
 	return false;
+	
     }
 }

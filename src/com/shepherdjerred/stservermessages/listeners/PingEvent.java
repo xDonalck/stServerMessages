@@ -10,14 +10,18 @@ import org.bukkit.event.server.ServerListPingEvent;
 import com.shepherdjerred.stservermessages.Main;
 
 public class PingEvent implements Listener {
+    
+    final Random random = new Random();
 
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
+	
+	// Get a list of all motds, pick & set a random one
 	List<String> motds = Main.getInstance().getConfig().getStringList("motds");
-	final Random random = new Random();
-	final String motdraw = motds.get(random.nextInt(motds.size()));
-	String motdfinal = motdraw.replaceAll("&", "§").replaceAll("§§", "&").replaceAll("%newline%", "\n");
-	event.setMotd(motdfinal);
+
+	String motd = motds.get(random.nextInt(motds.size())).replaceAll("&", "§").replaceAll("§§", "&").replaceAll("%newline%", "\n");
+	
+	event.setMotd(motd);
     }
 
 }

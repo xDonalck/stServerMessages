@@ -19,8 +19,12 @@ messages:
     me: "&3%player% &8* &7%message%"
     no-perms: "&cYou don't have permission to do that!"
     no-console: "&cYou must be a player to do that!"
-    no-args: "&cNo arguments given!"
-    invalid-arg: "&cInvalid argument(s)!"
+    no-args: "&cNo arguments given! Valid arguments are: "
+    invalid-arg: "&c%arg% is not a valid argument! Valid arguments are: "
+    tips-set-true: "Tips are now &2on"
+    tips-set-false: "Tips are now &4off"
+    ads-set-true: "Ads are now &2on"
+    ads-set-false: "Ads are now &4off"
 
 # Messages and options concerning deaths
 deaths:
@@ -168,19 +172,19 @@ announcements:
         prefix: "&8[&3Tips&8]: &7"
         interval: 10
         delay: 0
-        set-to-true: "Tips are now &2on"
-        set-to-false: "Tips are now &4off"
         messages:
-            - "Sample Tip"
+            - "Sample Tip #1"
+            - "Sample Tip #2"
+            - "Sample Tip #3"
     ads:
         enabled: false
         prefix: "&8[&3Ads&8]: &7"
         interval: 20
         delay: 5
-        set-to-true: "Ads are now &2on"
-        set-to-false: "Ads are now &4off"
         messages:
-            - "Sample Ad"
+            - "Sample Ad #1"
+            - "Sample Ad #2"
+            - "Sample Ad #3"
 
 storage:
     preferences:

@@ -1,5 +1,5 @@
 name: stServerMessages
-version: 1.4.6
+version: 1.4.7
 description: Modify death messages, join/leave messages, tab header/footer, and much more!
 author: Jerred Shepherd (RiotShielder)
 website: http://shepherdjerred.com/
@@ -24,6 +24,8 @@ permissions:
             stServerMessages.me: true
             stServerMessages.reload: true
             stServerMessages.commands: true
+            stServerMessages.preferences.ads: true
+            stServerMessages.preferences.tips: true
     stServerMessages.say:
         description: Gives access to /say
         default: op
@@ -36,6 +38,9 @@ permissions:
     stServerMessages.commands:
         description: Allows players to run disallowed commands
         default: op
-    stServerMessages.preferences:
-        description: Allows players to set tips/shop ads preferences
+    stServerMessages.preferences.ads:
+        description: Allows players to set shop ad preferences
+        default: true
+    stServerMessages.preferences.tips:
+        description: Allows players to set tip preferences
         default: true

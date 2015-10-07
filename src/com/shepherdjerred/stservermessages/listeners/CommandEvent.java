@@ -12,19 +12,25 @@ public class CommandEvent implements Listener {
 
     @EventHandler
     public void PlayerCommand(PlayerCommandPreprocessEvent event) {
+	
+	// Get a list of disallowed commands
 	final List<String> commands = Main.getInstance().getConfig().getStringList("disallow-commands");
+	
+	// Split the command input, get the first argument
 	String command = event.getMessage().split(" ")[0].split("/")[1];
 
+	// Loop through the first arguments, look for a match between the input and disallowed commands
 	for (String s : commands) {
 	    if (command.trim().toLowerCase().equals(s.trim().toLowerCase())) {
-		if (event.getPlayer().hasPermission("stServerMessages.commands")) {
-		    /* Do nothing */
-		} else {
+		if (!(event.getPlayer().hasPermission("stServerMessages.commands"))) { // If the player doesn't have permission to use the disallowed command
+
+		    // Cancel the command, send an error message
 		    event.setCancelled(true);
-		    String prefix = Main.getInstance().getConfigString("prefix.server");
-		    String noperms = Main.getInstance().getConfigString("messages.no-perms");
-		    event.getPlayer().sendMessage(prefix + noperms);
+		    event.getPlayer().sendMessage(Main.getInstance().messagesPrefix + Main.getInstance().messagesNoPerms);
+		    
+		    // Stop the loop
 		    break;
+		    
 		}
 	    }
 	}

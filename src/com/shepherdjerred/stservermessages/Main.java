@@ -29,6 +29,21 @@ public class Main extends JavaPlugin {
     public static Main getInstance() {
 	return instance;
     }
+    
+    // TODO Remove this area and put it where it should be.
+    // Setup message variables
+    public String messagesPrefix = getConfigString("prefix.server");
+    public String messagesMe = getConfigString("messages.me");
+    public String messagesSay = getConfigString("messages.say");
+    public String messageNoConsole = getConfigString("messages.no-console");
+    public String messagesNoPerms = getConfigString("messages.no-perms");
+    public String messagesInvalidArg = getConfigString("messages.invalid-arg");
+    public String messagesNoArgs = getConfigString("messages.no-args");
+    public String messagesAdsSetTrue = getConfigString("messages.ads-set-true");
+    public String messagesAdsSetFalse = getConfigString("messages.ads-set-false");
+    public String messagesTipsSetTrue = getConfigString("messages.tips-set-true");
+    public String messagesTipsSetFalse = getConfigString("messages.tips-set-false");
+    public String messagesJoin = getConfigString("messages.join");
 
     @Override
     public void onEnable() {
@@ -44,24 +59,31 @@ public class Main extends JavaPlugin {
 	this.getCommand("me").setExecutor(new MeCommand());
 	this.getCommand("say").setExecutor(new SayCommand());
 	this.getCommand("stsm").setExecutor(new MainCommand());
+	
 
 	// Setup variables for announcers
 	BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-	final Random random = new Random();
+	Random random = new Random();
+	String messagesTipsPrefix = getConfigString("announcements.tips.prefix");
+	String messagesAdsPrefix = getConfigString("announcements.ads.prefix");
+	List<String> tipsList = getConfig().getStringList("announcements.tips.messages");
+	List<String> adsList = getConfig().getStringList("announcements.ads.messages");
 
 	// Tip announcer
 	if (getConfig().getBoolean("announcements.tips.enabled")) {
 	    scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 		@Override
 		public void run() {
-		    List<String> messages = getConfig().getStringList("announcements.tips.messages");
-		    final String messagesraw = messages.get(random.nextInt(messages.size()));
-		    String messagesfinal = messagesraw.replaceAll("&", "§").replaceAll("§§", "&").replaceAll("%newline%", "\n");
-		    String prefix = getConfigString("announcements.tips.prefix");
-		    Bukkit.getConsoleSender().sendMessage(prefix + messagesfinal);
+		    String randomTip = tipsList.get(random.nextInt(tipsList.size()));
+		    String proccessedTip = ChatColor.translateAlternateColorCodes('&', randomTip).replaceAll("%newline%", "\n");
+		    
+		    // Send the tip to the console
+		    Bukkit.getConsoleSender().sendMessage(messagesTipsPrefix + proccessedTip);
+		    
+		    // Loop through online players, send the tip
 		    for (Player player : getServer().getOnlinePlayers()) {
 			if (getConfig().getBoolean("storage.preferences." + player.getName() + ".tips")) {
-			    player.sendMessage(prefix + messagesfinal);
+			    player.sendMessage(messagesTipsPrefix + proccessedTip);
 			}
 		    }
 		}
@@ -73,14 +95,16 @@ public class Main extends JavaPlugin {
 	    scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 		@Override
 		public void run() {
-		    List<String> messages = getConfig().getStringList("announcements.ads.messages");
-		    final String messagesraw = messages.get(random.nextInt(messages.size()));
-		    String messagesfinal = messagesraw.replaceAll("&", "§").replaceAll("§§", "&").replaceAll("%newline%", "\n");
-		    String prefix = getConfigString("announcements.ads.prefix");
-		    Bukkit.getConsoleSender().sendMessage(prefix + messagesfinal);
+		    String randomAd = adsList.get(random.nextInt(adsList.size()));
+		    String processedAd = ChatColor.translateAlternateColorCodes('&', randomAd).replaceAll("%newline%", "\n");
+		    
+		    // Send the ad to the console
+		    Bukkit.getConsoleSender().sendMessage(messagesAdsPrefix + processedAd);
+		    
+		    // Loop through online players, send the ad
 		    for (Player player : getServer().getOnlinePlayers()) {
-			if (getConfig().getBoolean("storage.preferences." + player.getName() + "ads")) {
-			    player.sendMessage(prefix + messagesfinal);
+			if (getConfig().getBoolean("storage.preferences." + player.getName() + ".ads")) {
+			    player.sendMessage(messagesAdsPrefix + processedAd);
 			}
 		    }
 		}
@@ -91,6 +115,8 @@ public class Main extends JavaPlugin {
 	scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 	    @Override
 	    public void run() {
+		
+		// Loop through online players
 		for (Player player : getServer().getOnlinePlayers()) {
 		    String name = player.getName();
 		    int counter = getConfig().getInt("storage.death-counter." + name);
@@ -101,9 +127,10 @@ public class Main extends JavaPlugin {
 			getConfig().set("storage.death-counter." + name, null);
 		    }
 		}
+		
 		saveConfig();
 	    }
-	}, 0, getConfig().getInt("deaths.counter-expire-interval") * 20 * 60);
+	}, getConfig().getInt("deaths.counter-expire-interval") * 20 * 60, getConfig().getInt("deaths.counter-expire-interval") * 20 * 60);
     }
 
     // Method for getting strings from the config with color codes
